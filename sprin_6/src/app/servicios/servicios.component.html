@@ -1,0 +1,39 @@
+<form [formGroup]="formularioPresupuesto">
+<div>
+        @for (serv of servicio; track $index) {
+            <div class="objeto">
+                <div class="info">
+                        <div class="nombre">
+                        <h1>{{serv.nombre}}</h1>
+                        <p>{{serv.descripcion}}</p>
+                    </div>
+                    <div class="precio">
+                        {{serv.precio}}
+                    </div>
+                    <div class="check">
+                        <input type="checkbox" [formControlName]="'servicio' + $index" (change)="calcularPresupuesto(); desmarcar(); calcularTotal()" > Añadir
+                    </div>
+                </div>
+                        <div class="desplegable"> <!-- desplegable que sale cuando le doy a un boton check -->
+                            @if (formularioPresupuesto.value.servicio2 && $index===2) {
+                                <div class="paginas">
+                                    <p>Nombre de paginas</p>
+                                    <button (click)="decrementar();calcularTotal()">-</button>
+                                    <div class="valor">{{paginas}}</div>
+                                    <button (click)="incrementar();calcularTotal()">+</button>
+                                </div>
+                                <div class="lenguas">
+                                    <p>Nombre de lenguas</p>
+                                    <button (click)="decrementar2();calcularTotal()">-</button>
+                                    <div class="valor">{{lenguas}}</div>
+                                    <button (click)="incrementar2();calcularTotal()">+</button>
+                                </div>
+                            }
+                        </div>
+            </div>
+    }
+    <div class="presupuesto">{{presupuestoTotal}} </div>
+</div>
+</form>
+
+
