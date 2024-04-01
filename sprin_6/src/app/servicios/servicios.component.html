@@ -17,12 +17,14 @@
                         <div class="desplegable"> <!-- desplegable que sale cuando le doy a un boton check -->
                             @if (formularioPresupuesto.value.servicio2 && $index===2) {
                                 <div class="paginas">
+                                    <button (click)="openPopup('paginas')">i</button>
                                     <p>Nombre de paginas</p>
                                     <button (click)="decrementar();calcularTotal()">-</button>
                                     <div class="valor">{{paginas}}</div>
                                     <button (click)="incrementar();calcularTotal()">+</button>
                                 </div>
                                 <div class="lenguas">
+                                    <button (click)="openPopup('lenguas')">i</button>
                                     <p>Nombre de lenguas</p>
                                     <button (click)="decrementar2();calcularTotal()">-</button>
                                     <div class="valor">{{lenguas}}</div>
@@ -35,5 +37,10 @@
     <div class="presupuesto">{{presupuestoTotal}} </div>
 </div>
 </form>
+<div>
+    @if (popup == true) {
+    <app-popup [tipo]="tipoPopup" (click)="cerrarPopup()"></app-popup>
+}
+</div>
 
 
