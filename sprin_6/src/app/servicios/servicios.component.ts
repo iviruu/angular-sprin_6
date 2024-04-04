@@ -1,5 +1,5 @@
 import { Component} from '@angular/core';
-import {ReactiveFormsModule,FormControl, FormGroup } from '@angular/forms';
+import {ReactiveFormsModule,FormControl, FormGroup, FormBuilder,Validators } from '@angular/forms';
 import { ServicioService } from '../servicio.service';
 import { PopupComponent } from '../popup/popup.component';
 
@@ -19,27 +19,23 @@ export class ServiciosComponent {
   lenguas:number = 0;      // el numero de lenguas que se pide 
   popup:boolean = false;   // el booleano para activar modal
   tipoPopup: 'paginas' | 'lenguas'= 'paginas';
-  
+  formulario: FormGroup;
+  datosGuardados: { nombre: string, email: string, telefono: string }[] = [];
 
-  constructor(private servicioServicio: ServicioService) {
+  constructor(private servicioServicio: ServicioService, private formBuilder: FormBuilder) {
     this.servicio= this.servicioServicio.retornar();
-    
-
+    this.formulario = this.formBuilder.group({
+      nombre: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      telefono: ['', [Validators.required]],
+    });
   }
-  
-
 
   formularioPresupuesto = new FormGroup({
     servicio0: new FormControl(false),
     servicio1: new FormControl(false),
-    servicio2: new FormControl(false),
-    listaPresupuesto: new FormGroup({
-      nombre: new FormControl(''),
-      email: new FormControl(''),
-      telefono: new FormControl('')
-    })
+    servicio2: new FormControl(false)
   });
-
 
   calcularPresupuesto(){
     this.presupuesto = 0;
@@ -84,11 +80,23 @@ cerrarPopup(){
   this.popup= false;
 }
 
-submit(){
+submit() {
+  if (this.formulario.valid) {
+    const nombre = this.formulario.value.nombre;
+    const email = this.formulario.value.email;
+    const telefono = this.formulario.value.telefono;
 
+    this.datosGuardados.push({ nombre, email, telefono });
+
+    console.log('Datos guardados:', this.datosGuardados);
+
+    this.formulario.reset();
+  }
+  else {
+    // Si el formulario no es válido, muestra un mensaje de error o realiza alguna acción adicional
+    console.log('El formulario no es válido, por favor verifica los campos.');
+  }
 }
 
 }
-
-
 
