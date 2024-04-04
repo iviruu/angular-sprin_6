@@ -14,15 +14,16 @@ export class ServiciosComponent {
 
   presupuestoTotal= 0;
   presupuesto = 0;    // es el presupuesto que sale de solo servicios
-  servicio:any[] = [];
+  servicio:any[] 
   paginas: number = 0;      //el numero de paginas que se pide en un servicio 
   lenguas:number = 0;      // el numero de lenguas que se pide 
   popup:boolean = false;   // el booleano para activar modal
-  tipoPopup: 'paginas' | 'lenguas'= 'paginas'
-
+  tipoPopup: 'paginas' | 'lenguas'= 'paginas';
+  
 
   constructor(private servicioServicio: ServicioService) {
     this.servicio= this.servicioServicio.retornar();
+    
 
   }
   
@@ -31,7 +32,12 @@ export class ServiciosComponent {
   formularioPresupuesto = new FormGroup({
     servicio0: new FormControl(false),
     servicio1: new FormControl(false),
-    servicio2: new FormControl(false)
+    servicio2: new FormControl(false),
+    listaPresupuesto: new FormGroup({
+      nombre: new FormControl(''),
+      email: new FormControl(''),
+      telefono: new FormControl('')
+    })
   });
 
 
@@ -72,17 +78,17 @@ calcularTotal(){
 openPopup(tipo : 'paginas' | 'lenguas'){
   this.popup = true;
   this.tipoPopup = tipo;
-  
 }
 
 cerrarPopup(){
   this.popup= false;
 }
 
+submit(){
 
 }
 
-
+}
 
 
 

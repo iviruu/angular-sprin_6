@@ -1,4 +1,4 @@
-<form [formGroup]="formularioPresupuesto">
+<form [formGroup]="formularioPresupuesto" >
 <div>
         @for (serv of servicio; track $index) {
             <div class="objeto">
@@ -36,11 +36,35 @@
     }
     <div class="presupuesto">{{presupuestoTotal}} </div>
 </div>
+    <form formGroupName="listaPresupuesto" (submit)="submit()" >
+        <div class="listaPresupuesto">
+            <h2>Demanar presupuesto</h2>
+
+        <input type="text" formControlName="nombre" placeholder="nombre">
+
+        <input type="text" formControlName="email" placeholder="email">
+
+        <input type="text" formControlName="telefono" placeholder="telefono">
+
+        <button type="submit">pedir</button>
+            
+    </div>
+    
+    </form>
 </form>
 <div>
     @if (popup == true) {
     <app-popup [tipo]="tipoPopup" (click)="cerrarPopup()"></app-popup>
 }
+
+
+  
+
+
+
+
+
+
 </div>
 
 
