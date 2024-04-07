@@ -1,0 +1,15 @@
+<div >
+    @for (datos of listaAplanada; track $index) {
+        
+            <div class="lista">
+                <h1>{{datos.nombre}}</h1>
+                <p>{{datos.email}} </p>
+                <p>{{datos.telefono}} </p>
+                <p>{{datos.dinero}} </p>
+                <p>{{datos.data}} </p>
+            </div>
+        }
+    <button (click)="ordenarFecha()"> ordenar fecha</button>
+    <button (click)="ordenarPrecio()"> ordenar por precio</button>
+    <button >ordenar precio alto</button>
+</div>

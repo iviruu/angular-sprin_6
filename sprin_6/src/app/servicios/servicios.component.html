@@ -55,15 +55,11 @@
     @if (popup == true) {
     <app-popup [tipo]="tipoPopup" (click)="cerrarPopup()"></app-popup>
 }
-
-
-  
-
-
-
-
-
-
 </div>
+<div class="datosGuardados">
+    <button (click)="borrarDatos()"> borar todo</button>
+    <app-lista-presupuesto> </app-lista-presupuesto>
+</div>
+
 
 
