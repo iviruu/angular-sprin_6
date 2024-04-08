@@ -1,4 +1,4 @@
-.modal{
+.modal-custom{
     position: absolute;
     top: 0;
     left: 0;
@@ -10,9 +10,9 @@
     justify-content: center;
     align-items: center;
 }
-.modal_cart{
-    width: 20%;
-    height: 10%;
+.cart1{
+    width: 40%;
+    height: 40%;
     background-color: white;
     display: flex;
     justify-content: center;
@@ -21,7 +21,7 @@
     border-radius: 10px;
     padding: 100px;
 }
-.modal_body{
+.body{
     display: flex;
     flex-direction: column;
     text-align: center;

@@ -1,41 +1,60 @@
 <form [formGroup]="formularioPresupuesto" >
-<div>
-        @for (serv of servicio; track $index) {
-            <div class="objeto">
-                <div class="info">
-                        <div class="nombre">
-                        <h1>{{serv.nombre}}</h1>
+            <div class="container ">
+                @for (serv of servicio; track $index) {
+                <div class="row justify-content-center border m-3 rounded-3 shadow align-items-center">
+                        <div class="col-6 p-3 ">
+                        <h3>{{serv.nombre}}</h3>
                         <p>{{serv.descripcion}}</p>
-                    </div>
-                    <div class="precio">
-                        {{serv.precio}}
-                    </div>
-                    <div class="check">
-                        <input type="checkbox" [formControlName]="'servicio' + $index" (change)="calcularPresupuesto(); desmarcar(); calcularTotal()" > Añadir
-                    </div>
-                </div>
-                        <div class="desplegable"> <!-- desplegable que sale cuando le doy a un boton check -->
+                        </div>
+                        <div class="col-3">
+                            {{serv.precio}}
+                        </div>
+                        <div class="col-3">
+                            <input type="checkbox" [formControlName]="'servicio' + $index" (change)="calcularPresupuesto(); desmarcar(); calcularTotal()" > Añadir
+                        </div>
+                <div class="offset-7 col-5"> <!-- desplegable que sale cuando le doy a un boton check -->
                             @if (formularioPresupuesto.value.servicio2 && $index===2) {
-                                <div class="paginas">
-                                    <button (click)="openPopup('paginas')">i</button>
-                                    <p>Nombre de paginas</p>
-                                    <button (click)="decrementar();calcularTotal()">-</button>
-                                    <div class="valor">{{paginas}}</div>
-                                    <button (click)="incrementar();calcularTotal()">+</button>
+                                <div class="row d-flex align-items-center mb-1">
+                                    <div class="col-1">
+                                        <button class="btn border-secondary rounded-circle btn-custom aliniar-centro " (click)="openPopup('paginas')">i</button>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="text-custom m-0">Numero de paginas</p>
+                                    </div>
+                                    <div class="col-1">
+                                        <button class="btn border-secondary rounded-circle btn-custom aliniar-centro" (click)="decrementar();calcularTotal()">-</button>
+                                    </div>
+                                    <div class="col-2 text-center">
+                                        <div class="border border-secondary rounded aliniar-centro">{{paginas}}</div>
+                                    </div>
+                                    <div class="col-1">
+                                        <button class="btn border-secondary rounded-circle btn-custom aliniar-centro" (click)="incrementar();calcularTotal()">+</button>
+                                    </div>
                                 </div>
-                                <div class="lenguas">
-                                    <button (click)="openPopup('lenguas')">i</button>
-                                    <p>Nombre de lenguas</p>
-                                    <button (click)="decrementar2();calcularTotal()">-</button>
-                                    <div class="valor">{{lenguas}}</div>
-                                    <button (click)="incrementar2();calcularTotal()">+</button>
+                                <div class="row d-flex align-items-center mb-3">
+                                    <div class="col-1">
+                                        <button class="btn border-secondary rounded-circle btn-custom aliniar-centro" (click)="openPopup('lenguas')">i</button>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="text-custom m-0">Numero de lenguas</p>
+                                    </div>
+                                    <div class="col-1">
+                                        <button class="btn border-secondary rounded-circle btn-custom aliniar-centro" (click)="decrementar2();calcularTotal()">-</button>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="border border-secondary rounded aliniar-centro">{{lenguas}}</div>
+                                    </div>
+                                    <div class="col-1">
+                                        <button class="btn border-secondary rounded-circle btn-custom aliniar-centro" (click)="incrementar2();calcularTotal()">+</button>
+                                    </div>
                                 </div>
                             }
                         </div>
+                        </div>
+                }
             </div>
-    }
+    
     <div class="presupuesto">{{presupuestoTotal}} </div>
-</div>
     </form>
     <form [formGroup]="formulario" (ngSubmit)="submit()" >
         <div class="listaPresupuesto">
