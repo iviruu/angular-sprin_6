@@ -6,8 +6,9 @@
                         <h3>{{serv.nombre}}</h3>
                         <p>{{serv.descripcion}}</p>
                         </div>
-                        <div class="col-3">
-                            {{serv.precio}}
+                        <div class="col-3 d-flex align-items-end gap-1">
+                            <h3 class="precio">{{serv.precio}}</h3>
+                            <h4>€</h4>
                         </div>
                         <div class="col-3">
                             <input type="checkbox" [formControlName]="'servicio' + $index" (change)="calcularPresupuesto(); desmarcar(); calcularTotal()" > Añadir
@@ -52,31 +53,38 @@
                         </div>
                         </div>
                 }
+                <div class="row">
+                    <div class="col-4 offset-8 d-flex align-items-end gap-1">
+                        <h3 class="me-3">Precio del servicio:</h3>
+                        <h2 class="precio"> {{presupuestoTotal}}</h2>
+                        <h4>€</h4>
+                    </div>
+                </div>
             </div>
-    
-    <div class="presupuesto">{{presupuestoTotal}} </div>
     </form>
-    <form [formGroup]="formulario" (ngSubmit)="submit()" >
-        <div class="listaPresupuesto">
-            <h2>Demanar presupuesto</h2>
-
-            <input type="text" id="nombre" formControlName="nombre" placeholder="nombre" />
-
-            <input type="text" id="email" formControlName="email" placeholder="email" />
-
-            <input type="text" id="telefono" formControlName="telefono" placeholder="telefono"/>
-
-            <button type="submit">pedir</button>
-            
+        <div class="container">
+        <form [formGroup]="formulario" (ngSubmit)="submit()" >
+        <div class="row justify-content-center border m-3 rounded-3 shadow align-items-center p-4">
+            <div class="col-12">
+                <h2 class="mb-4">Pedir presupuesto</h2>
+            </div>
+            <div class="col d-flex gap-3">
+                <input class="border border-secondary rounded flex-grow-1" type="text" id="nombre" formControlName="nombre" placeholder="nombre" />
+                <input class="border border-secondary rounded flex-grow-1" type="text" id="email" formControlName="email" placeholder="email" />
+                <input class="border border-secondary rounded flex-grow-1" type="text" id="telefono" formControlName="telefono" placeholder="telefono"/>
+                <button class="btn btn-success flex-grow-1 ms-5" type="submit">Solicitar presupuesto -></button>
+            </div>
         </div>
     </form>
+    </div>
+    
 <div>
     @if (popup == true) {
     <app-popup [tipo]="tipoPopup" (click)="cerrarPopup()"></app-popup>
 }
 </div>
 <div class="datosGuardados">
-    <button (click)="borrarDatos()"> borar todo</button>
+    <button (click)="borrarDatos()"> borrar todo</button>
     <app-lista-presupuesto> </app-lista-presupuesto>
 </div>
 
