@@ -22,3 +22,12 @@
 .precio{
     font-weight: 700;
 }
+.separacion {
+    height: 2px; /* Ajusta la altura si necesitas una línea más gruesa */
+    background-image: linear-gradient(to right, #808080 50%, rgba(255, 255, 255, 0) 0%);
+    background-position: top;
+    background-size: 20px 1px; /* Aumenta el espaciado entre los puntos */
+    background-repeat: repeat-x;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}

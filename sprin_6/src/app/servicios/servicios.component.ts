@@ -96,7 +96,7 @@ cerrarPopup(){
   this.popup= false;
 }
 
-submit() {
+submit() {  // lo que guarda en servei datos 
   if (this.formulario.valid) {
     const nombre = this.formulario.value.nombre;
     const email = this.formulario.value.email;
