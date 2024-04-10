@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 
 
 
+
+
 @Component({
   selector: 'app-lista-presupuesto',
   standalone: true,
@@ -16,10 +18,12 @@ export class ListaPresupuestoComponent implements OnInit {
   listaAplanada:any []=[];  // lista quitado una capa
   busqueda: string = '';   // la palabra por cual hace busqueda
   ordenAscendente: boolean = true;  // variable cual hace que cambia orden 
+  PresupuestoId: string = '';
   
 
-  constructor( private datosService: DatosService){
-  };
+  constructor( 
+    private datosService: DatosService,
+    ){};
 
   ngOnInit(): void {
     this.datosService.datosActualizados.subscribe(()=>{
@@ -86,5 +90,24 @@ export class ListaPresupuestoComponent implements OnInit {
         }
       }
     }
-    
-}
+    eliminarElemento(index: number) {
+      this.datosService.borrarElemento(index);
+    }
+    compartirUrl(index:number){
+      const todosDatos = this.datosService.obtenerDatos().flat();
+      const presupuesto = todosDatos[index];
+      if(presupuesto){
+        this.PresupuestoId = presupuesto.idPresupuesto;
+        const urlPresupuesto =`http://localhost:4200/presupuesto/${this.PresupuestoId}`;
+        navigator.clipboard.writeText(urlPresupuesto)
+      .then(() => {
+        alert('URL copiada al portapapeles');
+      })
+      .catch((error) => {
+        console.error('Error al copiar la URL al portapapeles:', error);
+      });
+      }else {
+        console.error('No se encontró ningún presupuesto para compartir.');
+    }
+  }
+} 

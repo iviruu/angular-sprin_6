@@ -4,6 +4,9 @@ import { ServicioService } from '../service/servicio.service';
 import { PopupComponent } from '../popup/popup.component';
 import { DatosService } from '../service/datos.service';
 import { ListaPresupuestoComponent } from '../lista-presupuesto/lista-presupuesto.component';
+import {v4 as uuidv4} from 'uuid';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -23,11 +26,13 @@ export class ServiciosComponent implements OnInit {
   popup:boolean = false;   // el booleano para activar modal
   tipoPopup: 'paginas' | 'lenguas'= 'paginas';
   formulario: FormGroup;
+  
   datosGuardados: { nombre: string,  //facetype de lista de presupuesto
       email: string,
       telefono: number,
       dinero: number,
       data: any,
+      idPresupuesto:string,
       servicio:{ 
         nombre: string,
         paginas?: number,
@@ -38,6 +43,7 @@ export class ServiciosComponent implements OnInit {
   constructor(private servicioServicio: ServicioService,
     private formBuilder: FormBuilder, 
     private datosServici: DatosService, 
+    private router: Router
     ) {
     this.servicio= this.servicioServicio.retornar();
     this.formulario = this.formBuilder.group({ // formulario de lista para presupuesto
@@ -104,6 +110,7 @@ submit() {  // lo que guarda en servei datos
     const dinero = this.presupuestoTotal;
     const servicio= [];
     const data= new Date();
+    const idPresupuesto = uuidv4();
   if(this.formularioPresupuesto.value.servicio0 ){
     servicio.push({ nombre: 'SEO'});
   }
@@ -114,13 +121,13 @@ submit() {  // lo que guarda en servei datos
     servicio.push({ nombre: 'Web', paginas: this.paginas, lenguas: this.lenguas});
   }
 
-    this.datosGuardados.push({ nombre, email, telefono, dinero, servicio, data});
+    this.datosGuardados.push({ nombre, email, telefono, dinero, servicio, data, idPresupuesto});
     this.guardarDatos()
     console.log('Datos guardados:', this.datosGuardados);
     this.datosServici.obtenerDatos();
     this.formulario.reset();
     this.datosGuardados= [];
-    this.datosServici.datosActualizados.emit()
+    this.datosServici.datosActualizados.emit();
   }
   else {
     console.log('El formulario no es válido, por favor verifica los campos.');
@@ -133,8 +140,6 @@ ngOnInit(): void {
 guardarDatos(){
   this.datosServici.guardarDatos(this.datosGuardados);
 }
-borrarDatos(){
-  this.datosServici.borrarDatos();
-}
+
 }
 

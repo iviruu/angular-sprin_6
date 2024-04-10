@@ -11,3 +11,6 @@
     background-size: 30px 2px; /* Aumenta el espaciado entre los puntos */
     background-repeat: repeat-x;
 }
+.borrar{
+    color: rgb(70, 226, 151);
+}
