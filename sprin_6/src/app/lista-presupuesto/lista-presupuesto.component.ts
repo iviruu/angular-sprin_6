@@ -22,6 +22,9 @@ export class ListaPresupuestoComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.datosService.datosActualizados.subscribe(()=>{
+      this.actualizarLista();
+    })
     this.actualizarLista();
     console.log("lista obtenida ahora", this.listaAplanada)
   };

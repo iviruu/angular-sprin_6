@@ -31,3 +31,13 @@
     margin-bottom: 20px;
     margin-top: 20px;
 }
+
+.div-fondo{
+    color: rgb(241, 246, 241);
+    background-image: url('/assets/img/milad-fakurian-wNsHBf_bTBo-unsplash.jpg');
+    height: auto; 
+    width: auto; 
+    background-size: cover;
+    background-position: end;
+    background-repeat: no-repeat;
+}

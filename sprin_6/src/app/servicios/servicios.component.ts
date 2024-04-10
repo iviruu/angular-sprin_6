@@ -23,7 +23,7 @@ export class ServiciosComponent implements OnInit {
   popup:boolean = false;   // el booleano para activar modal
   tipoPopup: 'paginas' | 'lenguas'= 'paginas';
   formulario: FormGroup;
-  datosGuardados: { nombre: string,
+  datosGuardados: { nombre: string,  //facetype de lista de presupuesto
       email: string,
       telefono: number,
       dinero: number,
@@ -120,6 +120,7 @@ submit() {  // lo que guarda en servei datos
     this.datosServici.obtenerDatos();
     this.formulario.reset();
     this.datosGuardados= [];
+    this.datosServici.datosActualizados.emit()
   }
   else {
     console.log('El formulario no es válido, por favor verifica los campos.');

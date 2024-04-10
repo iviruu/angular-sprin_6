@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable,EventEmitter } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DatosService {
 
-
+  datosActualizados: EventEmitter<void>= new EventEmitter<void>();
+  
   constructor() { };
 
   guardarDatos(datos : any []){

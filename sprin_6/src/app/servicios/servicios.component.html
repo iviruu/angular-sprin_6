@@ -1,3 +1,9 @@
+<div class="container">
+    <div class="row justify-content-center m-3 rounded align-items-center div-fondo">
+        <h1 class="text-center py-5">Consigue mejor servicio!</h1>
+    </div>
+</div>
+
 <form [formGroup]="formularioPresupuesto" >
             <div class="container">
                 @for (serv of servicio; track $index) {
@@ -85,17 +91,15 @@
         </div>
     </form>
     </div>
-    
 <div>
     @if (popup == true) {
     <app-popup [tipo]="tipoPopup" (click)="cerrarPopup()"></app-popup>
-}
+    }
 </div>
 <div>
-    
     <app-lista-presupuesto> </app-lista-presupuesto>
-
 </div>
+
 
 
 
