@@ -4,7 +4,8 @@ import { ServicioService } from '../service/servicio.service';
 import { PopupComponent } from '../popup/popup.component';
 import { DatosService } from '../service/datos.service';
 import { ListaPresupuestoComponent } from '../lista-presupuesto/lista-presupuesto.component';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute} from '@angular/router';
+import { Location } from '@angular/common';
 
 
 
@@ -31,6 +32,7 @@ export class ServiciosComponent implements OnInit {
       telefono: number,
       dinero: number,
       data: any,
+      urlActual: string,
       servicio:{ 
         nombre: string,
         paginas?: number,
@@ -42,6 +44,8 @@ export class ServiciosComponent implements OnInit {
     private formBuilder: FormBuilder, 
     private datosServici: DatosService, 
     private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private location: Location,
     ) {
     this.servicio= this.servicioServicio.retornar();
     this.formulario = this.formBuilder.group({ // formulario de lista para presupuesto
@@ -108,6 +112,8 @@ submit() {  // lo que guarda en servei datos
     const dinero = this.presupuestoTotal;
     const servicio= [];
     const data= new Date();
+    const urlActual = window.location.href;
+
   if(this.formularioPresupuesto.value.servicio0 ){
     servicio.push({ nombre: 'SEO'});
   }
@@ -118,13 +124,14 @@ submit() {  // lo que guarda en servei datos
     servicio.push({ nombre: 'Web', paginas: this.paginas, lenguas: this.lenguas});
   }
 
-    this.datosGuardados.push({ nombre, email, telefono, dinero, servicio, data});
+    this.datosGuardados.push({ nombre, email, telefono, dinero, servicio, data, urlActual});
     this.guardarDatos()
     console.log('Datos guardados:', this.datosGuardados);
     this.datosServici.obtenerDatos();
+    this.datosServici.datosActualizados.emit();
     this.formulario.reset();
     this.datosGuardados= [];
-    this.datosServici.datosActualizados.emit();
+    this.actualizarUrlConQueryParams(true);
   }
   else {
     console.log('El formulario no es válido, por favor verifica los campos.');
@@ -132,19 +139,57 @@ submit() {  // lo que guarda en servei datos
 }
 ngOnInit(): void {
   this.datosServici.obtenerDatos();
-  console.log('esto son datos guardados' ,this.datosServici.obtenerDatos())
+  console.log('esto son datos guardados' ,this.datosServici.obtenerDatos());
+
+  this.activatedRoute.queryParams.subscribe(params => {
+    if (params['Seo'] !== undefined) {
+      this.formularioPresupuesto.get('servicio0')?.setValue(params['Seo'] === 'true');
+    }
+    if (params['Ads'] !== undefined) {
+      this.formularioPresupuesto.get('servicio1')?.setValue(params['Ads'] === 'true');
+    }
+    if (params['Web'] !== undefined) {
+      this.formularioPresupuesto.get('servicio2')?.setValue(params['Web'] === 'true');
+    }
+    if (params['paginas'] !== undefined) {
+      this.paginas = +params['paginas']; 
+    }
+    if (params['lenguas'] !== undefined) {
+      this.lenguas = +params['lenguas'];
+    }
+
+    this.calcularPresupuesto();
+    this.calcularTotal();
+  })
 }
 guardarDatos(){
   this.datosServici.guardarDatos(this.datosGuardados);
 }
-cambiarUrlConQueryParams() {
-  const queryParams = {
-    servicio: 'seo', // Ejemplo, podría ser dinámico basado en la selección del formulario
-    paginas: 5, // Ejemplo, podría ser dinámico
-    // Agrega más parámetros según sea necesario
-  };
+actualizarUrlConQueryParams(reset = false) {
+  let queryParams = {};
+  if (reset) {
+    queryParams = {
+      Seo: false,
+      Ads: false,
+      Web: false,
+      paginas: 0,
+      lenguas: 0
+    };
+  } else {
+    queryParams = {
+      Seo: this.formularioPresupuesto.get('servicio0')?.value,
+      Ads: this.formularioPresupuesto.get('servicio1')?.value,
+      Web: this.formularioPresupuesto.get('servicio2')?.value,
+      paginas: this.paginas,
+      lenguas: this.lenguas
+    };
+  }
 
-  this.router.navigate(['/ruta'], { queryParams });
+  this.router.navigate([], {
+    relativeTo: this.activatedRoute,
+    queryParams: queryParams,
+    queryParamsHandling: 'merge'
+  });
 }
 
 }

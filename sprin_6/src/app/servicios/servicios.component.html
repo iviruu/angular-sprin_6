@@ -17,7 +17,7 @@
                             <h4>€</h4>
                         </div>
                         <div class="col-3">
-                            <input type="checkbox" [formControlName]="'servicio' + $index" (change)="calcularPresupuesto(); desmarcar(); calcularTotal()" > Añadir
+                            <input type="checkbox" [formControlName]="'servicio' + $index" (change)="calcularPresupuesto(); desmarcar(); calcularTotal();actualizarUrlConQueryParams()" > Añadir
                         </div>
                 <div class="offset-7 col-5"> <!-- desplegable que sale cuando le doy a un check -->
                             @if (formularioPresupuesto.value.servicio2 && $index===2) {
@@ -29,13 +29,13 @@
                                         <p class="text-custom m-0">Numero de paginas</p>
                                     </div>
                                     <div class="col-1">
-                                        <button class="btn border-secondary rounded-circle btn-custom aliniar-centro" (click)="decrementar();calcularTotal()">-</button>
+                                        <button class="btn border-secondary rounded-circle btn-custom aliniar-centro" (click)="decrementar();calcularTotal();actualizarUrlConQueryParams()">-</button>
                                     </div>
                                     <div class="col-2 text-center">
                                         <div class="border border-secondary rounded aliniar-centro">{{paginas}}</div>
                                     </div>
                                     <div class="col-1">
-                                        <button class="btn border-secondary rounded-circle btn-custom aliniar-centro" (click)="incrementar();calcularTotal()">+</button>
+                                        <button class="btn border-secondary rounded-circle btn-custom aliniar-centro" (click)="incrementar();calcularTotal();actualizarUrlConQueryParams()">+</button>
                                     </div>
                                 </div>
                                 <div class="row d-flex align-items-center mb-3">
@@ -46,13 +46,13 @@
                                         <p class="text-custom m-0">Numero de lenguas</p>
                                     </div>
                                     <div class="col-1">
-                                        <button class="btn border-secondary rounded-circle btn-custom aliniar-centro" (click)="decrementar2();calcularTotal()">-</button>
+                                        <button class="btn border-secondary rounded-circle btn-custom aliniar-centro" (click)="decrementar2();calcularTotal();actualizarUrlConQueryParams()">-</button>
                                     </div>
                                     <div class="col-2">
                                         <div class="border border-secondary rounded aliniar-centro">{{lenguas}}</div>
                                     </div>
                                     <div class="col-1">
-                                        <button class="btn border-secondary rounded-circle btn-custom aliniar-centro" (click)="incrementar2();calcularTotal()">+</button>
+                                        <button class="btn border-secondary rounded-circle btn-custom aliniar-centro" (click)="incrementar2();calcularTotal();actualizarUrlConQueryParams()">+</button>
                                     </div>
                                 </div>
                             }
@@ -96,10 +96,9 @@
     <app-popup [tipo]="tipoPopup" (click)="cerrarPopup()"></app-popup>
     }
 </div>
-<div>
+<div >
     <app-lista-presupuesto> </app-lista-presupuesto>
 </div>
-
 
 
 

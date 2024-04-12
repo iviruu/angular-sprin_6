@@ -93,4 +93,10 @@ export class ListaPresupuestoComponent implements OnInit {
     eliminarElemento(index: number) {
       this.datosService.borrarElemento(index);
     }
+    copiarUrl(url: string) {
+      navigator.clipboard.writeText(url).then(
+        () => console.log('URL copiada al portapapeles!'),
+        err => console.error('Error al copiar la URL: ', err)
+      );
+    }
 } 
