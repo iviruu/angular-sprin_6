@@ -93,21 +93,4 @@ export class ListaPresupuestoComponent implements OnInit {
     eliminarElemento(index: number) {
       this.datosService.borrarElemento(index);
     }
-    compartirUrl(index:number){
-      const todosDatos = this.datosService.obtenerDatos().flat();
-      const presupuesto = todosDatos[index];
-      if(presupuesto){
-        this.PresupuestoId = presupuesto.idPresupuesto;
-        const urlPresupuesto =`http://localhost:4200/presupuesto/${this.PresupuestoId}`;
-        navigator.clipboard.writeText(urlPresupuesto)
-      .then(() => {
-        alert('URL copiada al portapapeles');
-      })
-      .catch((error) => {
-        console.error('Error al copiar la URL al portapapeles:', error);
-      });
-      }else {
-        console.error('No se encontró ningún presupuesto para compartir.');
-    }
-  }
 } 

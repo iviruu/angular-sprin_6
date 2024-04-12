@@ -26,15 +26,10 @@ export class DatosService {
     todosDatos.splice(index, 1); // Elimina el elemento en el índice especificado
     localStorage.setItem('misDatos', JSON.stringify(todosDatos));
     this.datosActualizados.emit(); // Emitir evento para notificar que los datos han sido actualizados
-}
-  obtenerPresupuestoPorId(id: string): any{
-    const todosDatos: any[] = this.obtenerDatos().flat();
-    for (const datos of todosDatos) {
-        if (datos.id === id) {
-          return datos;
-      }
-    }
-    return null; // Si no se encuentra el presupuesto con el ID proporcionado
+  }
+  generarUrlPresupuesto(presupuesto: any): string {
+    const presupuestoCodificado = encodeURIComponent(JSON.stringify(presupuesto));
+    return `http://localhost:4200/crear-presupuesto?data=${presupuestoCodificado}`;
   }
 }
 

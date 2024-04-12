@@ -1,13 +1,6 @@
-import { RouterModule,Routes } from '@angular/router';
-import { NgModule } from '@angular/core';
-import { PresupuestoComponent } from './presupuesto/presupuesto.component';
 
-export const routes: Routes = [
-    {path:'presupuesto/:id', component: PresupuestoComponent}
-];
+import {Routes } from '@angular/router';
 
-@NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
-})
-export class AppRoutingModule {}
+
+
+export const routes: Routes = [];
